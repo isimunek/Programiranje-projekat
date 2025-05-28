@@ -1,1 +1,1 @@
-Završni zadatak iz Programiranja. Datoteka "Projekt 1" sadrži C kod koji u sebi sadrži i odabranu temu "Evidencija značajnih povijesnih događaja". Tijekom pisanja koda zaboravio sam promijeniti i ime istoga, stoga je moj završni rad pod imenom "Projekt 1".
+Završni zadatak iz Programiranja. Datoteka "Projekt 1" sadrži C kod koji u sebi sadrži i odabranu temu "Evidencija značajnih povijesnih događaja". Tijekom pisanja koda zaboravio sam promijeniti i ime istoga, stoga je moj završni rad pod imenom "Projekat 1".
