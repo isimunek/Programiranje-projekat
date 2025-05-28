@@ -3,40 +3,56 @@
 #include <stdio.h>
 #include "header.h"
 
+void dodajDogadaj();
+void ispisiDogadaje();
+void azurirajDogadaj();
+void obrisiDogadaj();
+
+typedef enum {
+    IZLAZ = 0,
+    DODAJ_DOGADJAJ = 1,
+    ISPISI_DOGADJAJE = 2,
+    AZURIRAJ_DOGADJAJ = 3,
+    OBRISI_DOGADJAJ = 4
+} IzbornikOpcija;
+
 int main() {
     int izbor;
 
     do {
         printf("\n=== IZBORNIK ===\n");
-        printf("1. Dodaj dogadaj\n");
-        printf("2. Ispisi dogadaje\n");
-        printf("3. Azuriraj dogadaj\n");
-        printf("4. Obrisi dogadaj\n");
-        printf("0. Izlaz\n");
+        printf("%d. Dodaj dogadaj\n", DODAJ_DOGADJAJ);
+        printf("%d. Ispisi dogadaje\n", ISPISI_DOGADJAJE);
+        printf("%d. Azuriraj dogadaj\n", AZURIRAJ_DOGADJAJ);
+        printf("%d. Obrisi dogadaj\n", OBRISI_DOGADJAJ);
+        printf("%d. Izlaz\n", IZLAZ);
         printf("Odabir: ");
-        scanf_s("%d", &izbor);
-        getchar();
+        scanf("%d", &izbor);
+
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
 
         switch (izbor) {
-        case 1:
+        case DODAJ_DOGADJAJ:
             dodajDogadaj();
             break;
-        case 2:
+        case ISPISI_DOGADJAJE:
             ispisiDogadaje();
             break;
-        case 3:
+        case AZURIRAJ_DOGADJAJ:
             azurirajDogadaj();
             break;
-        case 4:
+        case OBRISI_DOGADJAJ:
             obrisiDogadaj();
             break;
-        case 0:
+        case IZLAZ:
             printf("Izlaz iz programa.\n");
             break;
         default:
             printf("Pokusajte ponovno.\n");
+            break;
         }
-    } while (izbor != 0);
+    } while (izbor != IZLAZ);
 
     return 0;
 }
