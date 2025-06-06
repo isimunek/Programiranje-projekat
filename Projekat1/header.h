@@ -17,9 +17,19 @@ typedef struct {
     char opis[MAX_OPIS];
 } Dogadaj;
 
-void dodajDogadaj();
-void ispisiDogadaje();
-void azurirajDogadaj();
-void obrisiDogadaj();
+typedef enum {
+    IZLAZ = 0,
+    DODAJ_DOGADJAJ,
+    ISPISI_DOGADJAJE,
+    AZURIRAJ_DOGADJAJ,
+    OBRISI_DOGADJAJ,
+    PRETRAZI_DOGADJAJ
+} IzbornikOpcija;
+
+extern void dodajDogadaj();
+extern void ispisiDogadaje();
+extern void azurirajDogadaj();
+extern void obrisiDogadaj();
+extern void pretraziDogadaj();
 
 #endif

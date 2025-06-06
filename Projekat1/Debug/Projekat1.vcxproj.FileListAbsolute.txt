@@ -1,1 +1,3 @@
 C:\Users\student\Desktop\Projekat1\Debug\Projekat1.exe
+C:\Users\student\source\repos\Programiranje-projekat-main\Projekat1\Debug\Projekat1.exe
+C:\Users\student\Documents\GitHub\Programiranje-projekat\Projekat1\Debug\Projekat1.exe
