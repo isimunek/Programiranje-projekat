@@ -7,7 +7,7 @@ int main() {
     int izbor;
 
     do {
-        printf("\n=== IZBORNIK ===\n");
+        printf("\n=== IZBORNIK ===\n"); //implementacija izbornika//
         printf("%d. Dodaj dogadaj\n", DODAJ_DOGADJAJ);
         printf("%d. Ispisi dogadaje\n", ISPISI_DOGADJAJE);
         printf("%d. Azuriraj dogadaj\n", AZURIRAJ_DOGADJAJ);

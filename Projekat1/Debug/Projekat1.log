@@ -1,6 +1,5 @@
 ﻿  funkcije.c
-C:\Users\student\Documents\GitHub\Programiranje-projekat\Projekat1\funkcije.c(272,16): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
-C:\Users\student\Documents\GitHub\Programiranje-projekat\Projekat1\funkcije.c(276,16): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+C:\Users\Sima181\Documents\GitHub\Programiranje-projekat\Projekat1\funkcije.c(272,16): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
   main.c
   Generating Code...
-  Projekat1.vcxproj -> C:\Users\student\Documents\GitHub\Programiranje-projekat\Projekat1\Debug\Projekat1.exe
+  Projekat1.vcxproj -> C:\Users\Sima181\Documents\GitHub\Programiranje-projekat\Projekat1\Debug\Projekat1.exe

@@ -5,12 +5,12 @@
 #include <string.h>
 #include "header.h"
 
-static void ocistiBuffer() {
+static void ocistiBuffer() { //primjena ključne riječi static//
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-static int usporediDogadajePoNazivu(const void* a, const void* b) {
+static int usporediDogadajePoNazivu(const void* a, const void* b) { //pokazivač za qsort i bsearch//
     return strcmp(((Dogadaj*)a)->naziv, ((Dogadaj*)b)->naziv);
 }
 
@@ -19,26 +19,26 @@ static int usporediDogadajPoIDu(const void* key, const void* elem) {
     return id - ((Dogadaj*)elem)->id;
 }
 
-void dodajDogadaj() {
+void dodajDogadaj() { //strukture i funkcije//
     char period[MAX_PERIOD];
     printf("Unesite naziv povijesnog perioda: ");
     fgets(period, sizeof(period), stdin);
     period[strcspn(period, "\n")] = 0;
 
-    char imeDatoteke[MAX_PERIOD + 10];
+    char imeDatoteke[MAX_PERIOD + 10]; //imenovanje identifikatora//
     snprintf(imeDatoteke, sizeof(imeDatoteke), "%s.bin", period);
 
-    FILE* f = fopen(imeDatoteke, "ab+");
+    FILE* f = fopen(imeDatoteke, "ab+"); //provjera datoteke// //provjera pokazivača//
     if (!f) {
-        perror("Greska prilikom otvaranja datoteke");
+        perror("Greska prilikom otvaranja datoteke"); //upravljanje greškama//
         return;
     }
 
-    fseek(f, 0, SEEK_END);
-    long size = ftell(f);
-    rewind(f);
+    fseek(f, 0, SEEK_END); //pomicanje pokazivača na kraj//
+    long size = ftell(f); //izračun broja zapisa zbog ID-a//
+    rewind(f); //rewind na početak//
 
-    Dogadaj* noviDogadaj = (Dogadaj*)malloc(sizeof(Dogadaj));
+    Dogadaj* noviDogadaj = (Dogadaj*)malloc(sizeof(Dogadaj)); //malloc + free//
     if (!noviDogadaj) {
         perror("Greska pri alokaciji memorije");
         fclose(f);
@@ -63,8 +63,8 @@ void dodajDogadaj() {
     fgets(noviDogadaj->opis, sizeof(noviDogadaj->opis), stdin);
     noviDogadaj->opis[strcspn(noviDogadaj->opis, "\n")] = 0;
 
-    fwrite(noviDogadaj, sizeof(Dogadaj), 1, f);
-    free(noviDogadaj);
+    fwrite(noviDogadaj, sizeof(Dogadaj), 1, f); //upis događaja u .bin datoteku//
+    free(noviDogadaj); //oslobađanje memorije//
     fclose(f);
     printf("Dogadaj dodan u '%s'.\n", period);
 }
@@ -78,31 +78,31 @@ void ispisiDogadaje() {
     char imeDatoteke[MAX_PERIOD + 10];
     snprintf(imeDatoteke, sizeof(imeDatoteke), "%s.bin", period);
 
-    FILE* f = fopen(imeDatoteke, "rb");
+    FILE* f = fopen(imeDatoteke, "rb"); //otvaranje .bin datoteke//
     if (!f) {
         perror("Greska pri otvaranju datoteke");
         return;
     }
 
-    fseek(f, 0, SEEK_END);
-    long velicina = ftell(f);
-    rewind(f);
+    fseek(f, 0, SEEK_END); //prebacivanje pokazivača na kraj//
+    long velicina = ftell(f); //dohvaćanje veličine datoteke//
+    rewind(f); //povratak na početak//
 
     int broj = velicina / sizeof(Dogadaj);
     if (broj == 0) {
         printf("Nema dogadaja u datoteci.\n");
-        fclose(f);
+        fclose(f); //zatvaranje .bin datoteke//
         return;
     }
 
-    Dogadaj* niz = (Dogadaj*)malloc(broj * sizeof(Dogadaj));
-    if (!niz) {
+    Dogadaj* niz = (Dogadaj*)malloc(broj * sizeof(Dogadaj)); //upotreba pokazivača u funkciji// //malloc korišten za niz//
+    if (!niz) { //provjera pokazivaca prije koristenja//
         perror("Greska pri alokaciji memorije");
         fclose(f);
         return;
     }
 
-    fread(niz, sizeof(Dogadaj), broj, f);
+    fread(niz, sizeof(Dogadaj), broj, f); //učitavanje događaja iz .bin datoteke//
     fclose(f);
 
     for (int i = 0; i < broj; i++) {
@@ -134,7 +134,7 @@ void azurirajDogadaj() {
     ocistiBuffer();
 
     Dogadaj d;
-    while (fread(&d, sizeof(Dogadaj), 1, f)) {
+    while (fread(&d, sizeof(Dogadaj), 1, f)) { //čitanje zapisa jedan po jedan//
         if (d.id == trazeniID) {
             printf("Novi naziv: ");
             fgets(d.naziv, sizeof(d.naziv), stdin);
@@ -152,8 +152,8 @@ void azurirajDogadaj() {
             fgets(d.opis, sizeof(d.opis), stdin);
             d.opis[strcspn(d.opis, "\n")] = 0;
 
-            fseek(f, -(long)sizeof(Dogadaj), SEEK_CUR);
-            fwrite(&d, sizeof(Dogadaj), 1, f);
+            fseek(f, -(long)sizeof(Dogadaj), SEEK_CUR); //prebacivanje pokazivača unazad za mogući prepis//
+            fwrite(&d, sizeof(Dogadaj), 1, f); //prepisivanje ažuriranih podataka//
             printf("Azurirano.\n");
             fclose(f);
             return;
@@ -194,10 +194,10 @@ void obrisiDogadaj() {
     Dogadaj d;
     int noviID = 1, found = 0;
 
-    while (fread(&d, sizeof(Dogadaj), 1, f)) {
+    while (fread(&d, sizeof(Dogadaj), 1, f)) { //čitanje svih zapisa radi kopiuranja//
         if (d.id != trazeniID) {
             d.id = noviID++;
-            fwrite(&d, sizeof(Dogadaj), 1, temp);
+            fwrite(&d, sizeof(Dogadaj), 1, temp); //zapis događaja u privremenu datoteku//
         }
         else {
             found = 1;
@@ -208,7 +208,7 @@ void obrisiDogadaj() {
     fclose(temp);
 
     remove(imeDatoteke);
-    rename("temp.bin", imeDatoteke);
+    rename("temp.bin", imeDatoteke); //zamjena stare .bin datoteke novom//
 
     if (found)
         printf("Dogadaj obrisan.\n");
@@ -233,13 +233,13 @@ void pretraziDogadaj() {
 
     FILE* f = fopen(imeDatoteke, "rb");
     if (!f) {
-        perror("Greska pri otvaranju datoteke");
+        perror("Greska pri otvaranju datoteke"); 
         return;
     }
 
-    fseek(f, 0, SEEK_END);
-    long velicina = ftell(f);
-    rewind(f);
+    fseek(f, 0, SEEK_END); //pomicanje pokazivača na kraj//
+    long velicina = ftell(f); //dohvačanje veličine datoteke//
+    rewind(f); //rewind na početak// 
 
     int brojDogadaja = velicina / sizeof(Dogadaj);
     if (brojDogadaja == 0) {
@@ -255,10 +255,10 @@ void pretraziDogadaj() {
         return;
     }
 
-    fread(niz, sizeof(Dogadaj), brojDogadaja, f);
+    fread(niz, sizeof(Dogadaj), brojDogadaja, f); //čitanje svih zapisa u memoriji//
     fclose(f);
 
-    qsort(niz, brojDogadaja, sizeof(Dogadaj), usporediPoIDu);
+    qsort(niz, brojDogadaja, sizeof(Dogadaj), usporediPoIDu); //sortiranje po ID-u//
 
     int trazeniID;
     printf("Unesite ID za pretragu: ");
@@ -266,7 +266,7 @@ void pretraziDogadaj() {
     getchar();
 
     Dogadaj kljuc = { .id = trazeniID };
-    Dogadaj* rezultat = (Dogadaj*)bsearch(&kljuc, niz, brojDogadaja, sizeof(Dogadaj), usporediPoIDu);
+    Dogadaj* rezultat = (Dogadaj*)bsearch(&kljuc, niz, brojDogadaja, sizeof(Dogadaj), usporediPoIDu); //pretraga događaja po ID-u u .bin datoteci//
 
     if (rezultat) {
         printf("\nPronaden događaj:\nID: %d\nNaziv: %s\nDatum: %s\nLokacija: %s\nOpis: %s\n",
